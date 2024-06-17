@@ -21,20 +21,28 @@ export default function Map() {
   );
   const options = useMemo<MapOptions>(
     () => ({
+      mapId: "afb7bbc90fcf6765",
       disableDefaultUI: true,
       clickableIcons: false,
     }),
     []
   );
   const onLoad = useCallback((map) => (mapRef.current = map), []);
+  const [office, setOffice] = useState<LatLngLiteral>(); //<here we define what it going to use >
   return (
     <div className="container">
       <div className="controls">
         <h1>Directions</h1>
+        <Places
+          setOffice={(position) => {
+            setOffice(position);
+            mapRef.current?.panTo(position); //to panto the location
+          }}
+        />
       </div>
       <div className="map">
         <GoogleMap
-          zoom={10}
+          zoom={12}
           center={center}
           mapContainerClassName="map-container"
           options={options}
