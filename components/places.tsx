@@ -31,9 +31,11 @@ export default function Places({ setOffice }: PlacesProps) {
 
     const results = await getGeocode({ address: val }); //to extract the latitude and longitude of the results, it will give a bunch of results
     const { lat, lng } = await getLatLng(results[0]);
+
+    setOffice({ lat, lng }); // it'll convert the latitude and longitude and show the area of that
   };
   return (
-    <Combobox>
+    <Combobox onSelect={handleSelect}>
       <ComboboxInput
         value={value}
         onChange={(e) => setValue(e.target.value)}

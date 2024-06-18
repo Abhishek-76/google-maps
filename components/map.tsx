@@ -16,7 +16,7 @@ type MapOptions = google.maps.MapOptions;
 export default function Map() {
   const mapRef = useRef<GoogleMap>();
   const center = useMemo<LatLngLiteral>(
-    () => ({ lat: 12.887470134309096, lng: 77.64199942883577 }),
+    () => ({ lat: 12.954, lng: 77.631 }),
     []
   );
   const options = useMemo<MapOptions>(
