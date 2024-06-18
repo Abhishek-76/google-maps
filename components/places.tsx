@@ -24,6 +24,14 @@ export default function Places({ setOffice }: PlacesProps) {
     clearSuggestions, //after selecting one suggestion to clear other suggestions
   } = usePlacesAutocomplete();
 
+  const handleSelect = async (val: string) => {
+    //handleSelect handle the option or address we choose and pin it on map
+    setValue(val, false);
+    clearSuggestions();
+
+    const results = await getGeocode({ address: val }); //to extract the latitude and longitude of the results, it will give a bunch of results
+    const { lat, lng } = await getLatLng(results[0]);
+  };
   return (
     <Combobox>
       <ComboboxInput
