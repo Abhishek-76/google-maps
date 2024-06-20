@@ -3,7 +3,7 @@ import Map from "../components/map";
 
 export default function Home() {
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: "AIzaSyAFBm55zxPkUMSE906m-ZsRYXrSJWO2lik",
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
     libraries: ["places"],
   });
 
