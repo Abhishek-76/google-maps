@@ -8,6 +8,7 @@ import {
 } from "@react-google-maps/api";
 import Places from "./places";
 import Distance from "./distance";
+import Homes from "./home";
 
 type LatLngLiteral = google.maps.LatLngLiteral;
 type DirectionsResult = google.maps.DirectionsResult;
@@ -29,10 +30,19 @@ export default function Map() {
   );
   const onLoad = useCallback((map) => (mapRef.current = map), []);
   const [office, setOffice] = useState<LatLngLiteral>(); //<here we define what it going to use >
+  const [home, setHome] = useState<LatLngLiteral>();
   return (
     <div className="container">
       <div className="controls">
         <h1>Directions</h1>
+        <h4>From</h4>
+        <Homes
+          setHome={(homeposition) => {
+            setHome(homeposition);
+            mapRef.current?.panTo(homeposition); //to panto the location
+          }}
+        />
+        <h4>To</h4>
         <Places
           setOffice={(position) => {
             setOffice(position);
@@ -51,6 +61,15 @@ export default function Map() {
           {office && (
             <>
               <Marker position={office} />
+              <Circle center={office} radius={10000} options={closeOptions} />
+              <Circle center={office} radius={15000} options={middleOptions} />
+              <Circle center={office} radius={20000} options={farOptions} />
+            </>
+          )}
+
+          {home && (
+            <>
+              <Marker position={home} />
             </>
           )}
         </GoogleMap>
@@ -89,14 +108,14 @@ const farOptions = {
   fillColor: "#FF5252",
 };
 
-const generateHouses = (position: LatLngLiteral) => {
-  const _houses: Array<LatLngLiteral> = [];
-  for (let i = 0; i < 100; i++) {
-    const direction = Math.random() < 0.5 ? -2 : 2;
-    _houses.push({
-      lat: position.lat + Math.random() / direction,
-      lng: position.lng + Math.random() / direction,
-    });
-  }
-  return _houses;
-};
+// const generateHouses = (position: LatLngLiteral) => {
+//   const _houses: Array<LatLngLiteral> = [];
+//   for (let i = 0; i < 100; i++) {
+//     const direction = Math.random() < 0.5 ? -2 : 2;
+//     _houses.push({
+//       lat: position.lat + Math.random() / direction,
+//       lng: position.lng + Math.random() / direction,
+//     });
+//   }
+//   return _houses;
+// };
