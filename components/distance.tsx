@@ -1,7 +1,9 @@
 const commutesPerYear = 260 * 2; //max 260days for working
-const litresPerKM = 10 / 100;
+const litresPerKMCar = 1 / 30;
+const litresPerKMbike = 1 / 70;
 const gasLitreCost = 102;
-const litreCostKM = litresPerKM * gasLitreCost;
+const litreCarCostKM = litresPerKMCar * gasLitreCost;
+const litreBikeCostKM = litresPerKMbike * gasLitreCost;
 const secondsPerDay = 60 * 60 * 24;
 
 type DistanceProps = {
@@ -15,8 +17,11 @@ export default function Distance({ leg }: DistanceProps) {
     (commutesPerYear * leg.duration.value) / secondsPerDay
   );
 
-  const cost = Math.floor(
-    (leg.distance.value / 1000) * litreCostKM * commutesPerYear
+  const carCost = Math.floor(
+    (leg.distance.value / 1000) * litreCarCostKM * commutesPerYear
+  );
+  const bikeCost = Math.floor(
+    (leg.distance.value / 1000) * litreBikeCostKM * commutesPerYear
   );
 
   return (
@@ -27,10 +32,18 @@ export default function Distance({ leg }: DistanceProps) {
         <span className="highlight">{leg.duration.text}</span>
       </p>
       <p>
-        That`s <span className="highlight">{days} days</span> in your car each
+        That`s <span className="highlight"> {days} days </span> in your Car each
         year at a cost of{" "}
         <span className="highlight">
-          ₹{new Intl.NumberFormat("en-IN").format(cost)}
+          ₹{new Intl.NumberFormat("en-IN").format(carCost)}
+        </span>
+        .
+      </p>
+      <p>
+        That`s <span className="highlight">{days} days</span> in your Bike each
+        year at a cost of{" "}
+        <span className="highlight">
+          ₹{new Intl.NumberFormat("en-IN").format(bikeCost)}
         </span>
         .
       </p>
