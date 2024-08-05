@@ -1,9 +1,9 @@
 import React from "react";
-import { DirectionsRoute } from "google.maps";
+
 import { Table } from "antd";
 
 interface RouteTableProps {
-  routes: DirectionsRoute[];
+  routes: any[];
   selectedRoutes: number[];
   onRouteSelect: (index: number) => void;
 }
