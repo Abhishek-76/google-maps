@@ -2,19 +2,29 @@ import React from "react";
 
 import { Table } from "antd";
 
-interface Leg {
-  start_address: string;
-  end_address: string;
-  duration: { text: string };
-  distance: { value: number };
+interface Duration {
+  text: string;
+  value: number;
 }
 
-interface Route {
-  legs: Leg[];
+interface Distance {
+  text: string;
+  value: number;
+}
+
+interface DirectionsLeg {
+  start_address: string;
+  end_address: string;
+  duration: Duration;
+  distance: Distance;
+}
+
+interface DirectionsRoute {
+  legs: DirectionsLeg[];
 }
 
 interface RouteTableProps {
-  routes: Route[];
+  routes: DirectionsRoute[];
   selectedRoutes: number[];
   onRouteSelect: (index: number) => void;
 }
