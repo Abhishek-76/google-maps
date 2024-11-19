@@ -66,7 +66,7 @@ const RouteTable: React.FC<RouteTableProps> = ({
         selected: selectedRoutes.includes(index),
       };
     })
-    .filter((route) => route !== null);
+    .filter((route): route is NonNullable<typeof route> => route !== null);
 
   const columns = [
     {
