@@ -15,7 +15,7 @@ interface Distance {
 interface DirectionsLeg {
   start_address: string;
   end_address: string;
-  duration: Duration;
+  duration?: Duration;
   distance: Distance;
 }
 
@@ -24,7 +24,7 @@ interface DirectionsRoute {
 }
 
 interface RouteTableProps {
-  routes: DirectionsRoute[];
+  routes: google.maps.DirectionsRoute[];
   selectedRoutes: number[];
   onRouteSelect: (index: number) => void;
 }
@@ -46,7 +46,7 @@ const RouteTable: React.FC<RouteTableProps> = ({
   const dataSource = routes
     .map((route, index) => {
       const leg = route?.legs?.[0];
-      if (!leg) return null;
+      if (!leg || !leg.distance) return null;
 
       const carCost = Math.floor(
         (leg.distance.value / 1000) * litreCarCostKM * commutesPerYear
